@@ -4,6 +4,12 @@
 
 # MMCheat: Might and Magic 6/7/8/Merge Cheat Suite & Helper Tool
 
+> **Custom fork — Party Snapshot TSV Export (MMCheat 2.0.2)**
+>
+> This fork adds an **Export Party Snapshot** button under **Characters → Items** for **Might and Magic Merge (MMMerge)**. One click exports four timestamped TSV files containing party information, character statistics, skills, and equipment/inventory data for analysis and AI-assisted equipment optimization.
+>
+> The exporter is a custom addition, **not part of the original MMCheat release**. See **[Custom Export documentation](CUSTOM_EXPORT.md)** for the changed files, installation instructions, output format, and compatibility notes. The original MMCheat project is by **Tom Chen and contributors**, and its documentation continues below.
+
 _Keywords: cheat, trainer, tool, helper, cheater, teleporter, map viewer, character, player, stat, editor, god mode, MM6, MM7, MM8, Merge, mod_
 
 **MMCheat** is a cheat and helper tool for _Might and Magic Merge_ (MMMerge) and the GrayFace patched versions of _Might and Magic 6_, _7_, and _8_ (MM6/7/8) role-playing games. It is based on the [GrayFace Patch](https://grayface.github.io/mm/) and [MMExtension](https://grayface.github.io/mm/ext/) (v2.3 is required), both of which are developed by GrayFace.
