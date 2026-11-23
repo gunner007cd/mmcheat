@@ -45,9 +45,3 @@ These text files can be opened in spreadsheet software or supplied to an AI for 
 The exported code uses protected reads for MMExtension arrays and methods. To avoid a crash observed with a Merge/Revamp installation, it avoids reading item `Notes` for ordinary items and only retrieves those notes for artifact/relic entries. These safeguards were part of the archived custom implementation.
 
 The exporter is intended to **read** party data, not to modify the game or save. However, MMCheat and the mod can still crash if memory structures differ. Save before use; test with the exact game/mod version you trust, and do not assume newer upstream releases will accept this patch unchanged.
-
-## Archival notes
-
-The original user archive also contained local `conf.ini`, map caches and ordinary upstream source. Those were intentionally not added as custom changes. **No save games, character exports, or personal inventory snapshots are committed.**
-
-For future work, compare or merge changes against the upstream [MMCheat repository](https://github.com/might-and-magic/mmcheat) rather than blindly overwriting a working MMMerge installation.
