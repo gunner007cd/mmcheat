@@ -5,20 +5,21 @@ local enc = require("MMCheat/i18n/encoding")
 local utils = require("MMCheat/util/utils")
 local states = require("MMCheat/util/states")
 local ImageLabel = require("MMCheat/ui/components/ImageLabel")
+local inventory_export = require("MMCheat/util/inventory_export")
 
 local item_image_max_width = 450
 local item_image_max_height = 300
 
 local M = {}
 
-local inventory_list, item_select, bonus1, bonus1_value, bonus2, charges, apply_button, remove_button
+local inventory_list, item_select, bonus1, bonus1_value, bonus2, charges, apply_button, remove_button, export_button
 local identified, stolen, damaged, hardened
 local valid_items
 local item_image_label_obj
 local item_image_array
 
 function M.cleanup()
-	inventory_list, item_select, bonus1, bonus1_value, bonus2, charges, apply_button, remove_button = nil
+	inventory_list, item_select, bonus1, bonus1_value, bonus2, charges, apply_button, remove_button, export_button = nil
 	identified, stolen, damaged, hardened = nil
 	valid_items = nil
 	item_image_label_obj = nil
@@ -290,6 +291,22 @@ function M.firstload()
 		return iup.DEFAULT
 	end)
 
+	iup.SetCallback(export_button, "ACTION", function()
+		local result, err = inventory_export.export()
+		if not result then
+			iup.Message("MMCheat - Inventory Export", tostring(err))
+		else
+			iup.Message("MMCheat - Party Snapshot Export",
+				"Exported " .. tostring(result.characters) .. " active party members.\n\n" ..
+				"Created four timestamped TSV files:\n" ..
+				result.inventory_tsv_timestamped .. "\n" ..
+				result.characters_tsv_timestamped .. "\n" ..
+				result.skills_tsv_timestamped .. "\n" ..
+				result.party_tsv_timestamped)
+		end
+		return iup.DEFAULT
+	end)
+
 	iup.SetCallback(remove_button, "ACTION", function()
 		local selected = iup.GetInt(inventory_list, "VALUE")
 		if selected == 1 then
@@ -344,6 +361,10 @@ function M.create()
 		MINSIZE = "60x",
 		FGCOLOR = ui.apply_button_color
 	})
+	export_button = ui.button("Export Party Snapshot", nil, {
+		MINSIZE = "145x",
+		TIP = "Export inventory, equipment, artifact notes, character stats, combat values, skills, gold, reputation, and game date."
+	})
 
 	item_image_label_obj = ImageLabel:new({
 		width = item_image_max_width,
@@ -352,7 +373,7 @@ function M.create()
 
 	local inventory_box = ui.vbox(
 		{ ui.label(i18n._("inventory") .. i18n._("nn") .. i18n._("equipment")), inventory_list,
-			ui.label("*" .. i18n._("colon") .. i18n._("equipped")) })
+			ui.label("*" .. i18n._("colon") .. i18n._("equipped")), export_button })
 
 	local fields_box = ui.vbox({ ui.labelled_fields(i18n._("item"), { item_select }, 80),
 		ui.labelled_fields(i18n._("standard_bonus"), { bonus1, bonus1_value }, 80),
